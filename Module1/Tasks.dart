@@ -1,0 +1,8 @@
+void main()
+{
+  print("a. Name:- Gosai Riddhita");
+  print("b. Date of birth:- 18-09-2004");
+  print("c. Age:- 21");
+  print("d. Address:- Khodpara main road street no d/15, Jetpur");
+
+}
