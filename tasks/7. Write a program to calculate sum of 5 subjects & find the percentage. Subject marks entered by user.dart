@@ -15,7 +15,6 @@ void main()
 
   var total= a+b+c+d+e;
   print(total);
-  int double =500;
   var ans = (a+b+c+d+e)*100/500;
   print(ans);
 
