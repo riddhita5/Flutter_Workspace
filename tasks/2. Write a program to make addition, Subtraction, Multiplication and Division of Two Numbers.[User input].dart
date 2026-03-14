@@ -4,10 +4,10 @@ void main()
 {
 
   print("Enter first number:");
-  int a = int.parse(stdin.readLineSync()!);
+  var a = int.parse(stdin.readLineSync().toString());
 
   print("Enter second number:");
-  int b = int.parse(stdin.readLineSync()!);
+  var b = int.parse(stdin.readLineSync().toString());
 
   int add = a+b;
   print(add);
