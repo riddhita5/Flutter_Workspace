@@ -6,7 +6,8 @@ void main()
   print("Enter your number");
   num = int.parse(stdin.readLineSync().toString());
 
-  switch(num) {
+  switch(num) 
+  {
     case 1:
       print("English");
       break;
@@ -20,5 +21,8 @@ void main()
     default :
       print("Not Valid");
   }
+  
+}
+  
 
 }
