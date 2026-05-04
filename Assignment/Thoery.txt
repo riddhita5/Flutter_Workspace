@@ -1,0 +1,81 @@
+			Theory Assignment 
+
+Que 1 :-   Explain the benefits of using Flutter over other cross-platform frameworks.
+
+Ans :-  Flutter is considered  the best cross-platform tool because, 
+
+- Flutter is best for animations, it prioritizes complete UI control.
+-  You only need to write the app once to launch it everywhere (iOS, Android, Web, and Desktop).
+- It has a feature of hot reload,  Imagine changing a line of code and seeing the result on your phone in less than a second without restarting the app.
+- pixel-perfect consistency, its like your app looks exactly the same on an old Android, a new iPhone, and even a laptop screen.
+
+
+Que 2 :-   Describe the role of Dart in Flutter. What are its advantages for mobile development?
+Ans :-  Dart is the programming language developed by Google and Flutter provides the widgets for the UI designing.
+ Dart is the engine that helps with logic, manages the data.
+
+Role of Dart in Flutter :-
+- Its like a backbone because, every Flutter app is writen in dart and it handles the app's business logic.
+- Dart is used to define the layout. Unlike other uses separate files like xml, html, android for web. 
+- Dart keeps the UI and logic in the same place and make it more easier to maintain.
+ 
+Advantages for Mobile Development:-
+- Better Speed because apps are generally faster than websites because they store some data directly on the phone.
+- Many apps can perform basic tasks offline without any internet connection.
+- Apps can easily use your phone's camera, GPS, or fingerprint scanner to make tasks (like scanning a QR code or logging in) much simpler. 
+- It is more creative also because its a mix of logic and art.. You get to solve tough problems while also making something that looks beautiful and is fun to use.
+- Mobile development is a job that can often be done from anywhere in the world with just a laptop and Wi-Fi.
+
+
+Que 3 :-    Outline the steps to set up a Flutter development environment.
+Ans :- Steps to set up Flutter Development:-
+Step 1:- First you have to download Flutter SDK from Google.
+	- SDK contains the core libraries and the flutter command-line tool.
+
+Step 2 :- Extract in a fixed location.
+	- Such as C:\src\flutter on windows.
+
+Step 3:- Update Your System Path.
+	-For windows search "environmental variables" in tha start menu then add path to your flutter/bin folder.
+
+Step 4:- Install Your Code Editor like VS Code or Android from Google.
+	-VS Code (Recommended): Install VS Code, then add the Flutter and Dart extensions from the Extensions Marketplace. 
+	Android Studio: Download Android Studio. Go to Settings > Plugins, search for "Flutter," and install it; this will also install the Dart plugin
+
+Step 5:-  Set Up Target Platforms.
+	-Android: Open Android Studio and use the SDK Manager to install the latest Android SDK, Command-line Tools, and a Virtual Device (AVD).
+
+  
+Step 6:- Verify with "Flutter Doctor".
+	- Open a new terminal and run the following command to check if everything is correct: 
+	(bash
+	 flutter doctor)
+
+
+Que 4 :-   Describe the basic Flutter app structure, explaining main.dart, the main function, and the widget tree.
+Ans :-  Flutter app looks like a building, You have a base, a main entrance, and then all the different branches and rooms that make it look good. 
+
+= > main.dart(The File) :- This is the base of your project. It is the file where everything starts.
+
+=> The main() function:- It looks like an Engine. Every Flutter app starts with a small piece of called void main().
+Inside main function you'll see runApp(). This is the specific command that takes your design and actually pushes it onto the phone screen.
+
+=> The Widget Tree :- Its like a blueprint because in Flutter everthing is a Widget(button, text, color).
+
+Basic Architecture:-
+			My App
+			     |
+		              MaterialApp
+			     |
+			home
+			     |
+			Scaffold
+			    /\
+			  /    \
+		                  /       \
+		         appbar     body 
+		              |              | 
+		            title          text
+		              |
+		            text
+			
