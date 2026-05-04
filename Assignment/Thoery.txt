@@ -1,4 +1,4 @@
-			Theory Assignment 
+		        											Theory Assignment 
 
 Que 1 :-   Explain the benefits of using Flutter over other cross-platform frameworks.
 
@@ -63,19 +63,19 @@ Inside main function you'll see runApp(). This is the specific command that take
 => The Widget Tree :- Its like a blueprint because in Flutter everthing is a Widget(button, text, color).
 
 Basic Architecture:-
-			My App
+			  My App
 			     |
-		              MaterialApp
+		     MaterialApp
 			     |
-			home
+			    home
 			     |
 			Scaffold
 			    /\
 			  /    \
-		                  /       \
-		         appbar     body 
-		              |              | 
-		            title          text
-		              |
-		            text
+		    /       \
+	    appbar       body 
+	     /             \
+	  title            text
+	 /
+  text
 			
