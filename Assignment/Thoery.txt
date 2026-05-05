@@ -72,10 +72,10 @@ Basic Architecture:-
 			Scaffold
 			    /\
 			  /    \
-		    /       \
-	    appbar       body 
-	     /             \
-	  title            text
+		    /        \
+	    appbar        body 
+	    /               \
+	  title             text
 	 /
   text
 			
