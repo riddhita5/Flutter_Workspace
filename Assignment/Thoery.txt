@@ -67,9 +67,9 @@ Basic Architecture:-
 			     |
 		     MaterialApp
 			     |
-			    home
+			   home
 			     |
-			Scaffold
+			 Scaffold
 			    /\
 			  /    \
 		    /        \
