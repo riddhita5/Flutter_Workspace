@@ -1,0 +1,329 @@
+      			            Assignment 1                                         
+Theory Assignments:-
+
+
+ Que-1  Explain the fundamental data types in Dart (int,double,String,List,Map,etc.) and their uses.
+
+Ans -  Int :- int is a one type of integer data type and it is used to represents the numeric values.
+ 	ex:- int a=1;
+
+           Double :- double is one type of data type it is used to represents the decimal values.
+	ex:-  double b=0.5;
+
+           String :- String is one type of data type and it is used to represents character with multiple line.
+	ex:-   String c="Welcome to Tops";
+
+           List :- A List stores multiple values in a single variable.
+	ex:-   List<String> fruits = ["Apple", "Mango", "Banana"];
+
+           Map:-  A Map stores data in key-value pairs.
+	ex:-   Map<String, dynamic> student = {
+		  "name": "Riddhita",
+  		"age": 21,
+  		"marks": 90};
+
+          Set:-  A Set stores unique values only.
+	ex:-  Set<int> numbers = {1, 2, 3, 3, 4};
+
+          var:- var automatically detects the datatype from the assigned value.
+	ex:- var name = "Flutter";
+	        var number = 10;
+	        var one = true;
+
+ Que-2  Describe control structures in Dart with examples of if, else, for, while, and switch.
+
+Ans -  control structure:- There are many types of control structure statements but here using only two types:-
+	(1) Conditional Statement or 
+	(2) Looping Statement or Iterative Statement
+
+(1)Conditional statement:- 
+	Conditional statement is a type of statements that checks conditions. Like when 
+	we write a condition they check if it is true they will run the code otherwise
+	they will skip the code.
+		
+	Types of conditional statement:-
+	(i)only if   (ii) if..else (iii) else.. if (iv) nested if (v) switch case
+
+	I will write a syntax so you can easily understand and then i will explain with example
+		
+(i) if else:-
+
+syntax:-				
+data type;
+if(condition)
+{
+	block of statement
+}
+else
+{
+	block of statement
+}
+				
+				
+ex:- 
+
+import 'dart:io';
+
+void main()
+{
+  int marks;
+  print("Enter Your Marks");
+  marks = int.parse(stdin.readLineSync().toString());
+
+    if(marks>=35)
+    {
+        print("Pass");
+    }
+   else
+    {
+      print("Fail");
+    }
+
+}
+
+	
+(ii) else if:-
+
+syntax:-
+data type;
+if(condition)
+{
+	block of statement
+}
+else if(condition)
+{
+	block of statement
+}
+else if(condition)
+{
+	block of statement
+}
+else
+{
+	block of statement
+}
+                                                         
+ex:-
+
+import 'dart:io';
+
+void main()
+{
+  int marks;
+  print("Enter Your marks");
+  marks = int.parse(stdin.readLineSync().toString());
+
+    if(marks>=70)
+    {
+        print("A Grade");
+    }
+    else if(marks>=60)
+    {
+      print("B Grade");
+    }
+    else if(marks>=50)
+    {
+      print("C Grade");
+    }
+    else if(marks>=40)
+    {
+      print("D Grade");
+    }
+    else
+    {
+      print("Fail");
+    }
+
+}
+
+(iii) switch case:-
+
+syntax:- 
+
+datatype;
+swtich()
+{
+	case 1:  // block of code ;
+	break;
+	
+	case 2:   //block of code;
+	break;
+	
+	case 2:   //block of code;
+	break;
+
+	default:
+}
+
+ex:-
+
+import 'dart:io';
+
+void main()
+{
+
+  int num;
+  print("Enter your Choice");
+  num= int.parse(stdin.readLineSync().toString());
+
+  print("Enter your number");
+  int a= int.parse(stdin.readLineSync().toString());
+
+  print("Enter your number");
+  int b= int.parse(stdin.readLineSync().toString());
+
+
+
+  switch(num)
+
+  {
+    case 1: int add = a+b;
+            print(add);
+
+    case 2: int sub = a-b;
+            print(sub);
+
+    case 3: int mul = a*b;
+            print(mul);
+
+    case 4: var div = a/b;
+            print(div);
+
+  }
+}
+	
+(2)Looping Statement :-
+	Looping Statements are used when you want to run a code again and again repeatedly until a your given
+	condition are not completed.
+
+	There are many loops given below:-
+	
+	(i) for loop (entry control)  (ii) while loop (entry control) (iii) do-while loop (exit control)
+	(iv) for.. in loop  (v) for each loop
+
+	
+	I will write a syntax so you can easily understand and then i will explain with example
+	
+(i)  For loop :-
+
+syntax:- 
+data type;
+for(initialization;condition;increment/decrement)
+{
+	//block of code
+}
+
+ex:-
+void main()
+{
+  for(int i=1;i<=50;i++)
+    {
+      print("Riddhita $i");
+    }
+}
+
+(ii) While loop :-
+
+syntax:-
+data type;
+initialization; 
+while(condition)
+{
+	//block of code;
+	increment/decrement;
+}
+
+ex:-
+void main()
+{
+  int i=1;
+  while(i<=10)
+  {
+    print("$i Riddhita");
+    i++;
+  }
+}
+
+Que-3 Explain object-oriented programming concepts in Dart, such as classes, inheritance, polymorphism, and interfaces
+Ans - Object-oriented programming concepts:-
+(1) Class
+(2).Encapsulation
+(3) Polymorphism
+(4) Inheritance
+(5) Abstraction 
+(6) Object
+
+Some are explained below:-
+(1) Class :- Collection of objects are called a class
+		ex:- Human Body
+
+(2) Inheritance :- When one class takes all the properties and behaviour of another class are called Inheritance.
+		ex:- Father and his son
+		Types of Inheritance:-
+		(i) Single Inheritance
+		(ii) Multiple Inheritance
+		(iii) Multilevel Inheritance
+		(iv) Hierarchical Inheritance
+		(v) Hybrid Inheritance
+
+(3) Polimorphism :- There are many ways to perform anything. 
+		ex:- road ways
+
+
+(4) Interface:- Dart does not direclty support interface thats why uses a keyword called implements for inherit p
+roperties and behavior of another class and it is mainly used in multiple inheritance and hybrid inheritance.
+		ex:- class name implements class name of parent classes.
+
+Que - 4 Describe asynchronous programming in Dart, including Future, async,await and stream.
+Ans- Asynchronous Programming:- In simple words it is a type a time consuming process. You have multiple tasks at a
+same time.  It is mainly used to fetching data from internet, reading files, delays and timer
+Dart provides several features for asynchronous programming:
+1. Future
+
+A Future represents a value that will be available later.
+It is used when a task takes some time to complete.
+Ex:-
+Future<String> fetchData() {
+  return Future.delayed(
+    Duration(seconds: 2),
+    () => "Data Loaded",
+  );
+}
+
+2. async
+
+The async keyword is used with a function to make it asynchronous.
+It allows the function to use await.
+Future<void> getData() async {
+  print("Fetching data...");
+}
+
+3. await
+
+The await keyword pauses the execution of the async function until the Future completes.
+Future<String> fetchData() {
+  return Future.delayed(
+    Duration(seconds: 2),
+    () => "Data Loaded",
+  );
+}
+
+Future<void> main() async {
+  print("Start");
+
+  String data = await fetchData();
+
+  print(data);
+  print("End");
+}
+
+4. Stream
+
+A Stream provides multiple values over time.
+Unlike Future, which returns only one value, a Stream can return many values continuously.
+It is used in Live chat, Notifications, Sensor data, Real-time updates
+
+Future :- Represents a value available in the future.
+async :- Makes a function asynchronous.
+await :- Waits for a Future to complete.
+Stream :- Provides continuous asynchronous data.
