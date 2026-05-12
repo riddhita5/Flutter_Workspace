@@ -1,0 +1,9 @@
+bool isPalindrome(String str) {
+  String rev = str.split('').reversed.join('');
+  return str == rev;
+}
+
+void main() {
+  print(isPalindrome("madam")); // true
+  print(isPalindrome("hello")); // false
+}
