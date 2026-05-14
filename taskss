@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+
+class Food extends StatefulWidget {
+  const Food({super.key});
+
+  @override
+  State<Food> createState() => _FoodState();
+}
+
+class _FoodState extends State<Food> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Pizzaa Hub",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Food()),
+              );
+            },
+            icon: Icon(Icons.search, color: Colors.white, size: 30),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.favorite, color: Colors.red, size: 30),
+          ),
+        ],
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 200,
+              width: 500,
+              child: Image.asset("assets/img.png", fit: BoxFit.cover),
+            ),
+            SizedBox(height: 20),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text("Pizza Hub",style: TextStyle(fontSize: 20),),
+            ),SizedBox(height: 20,),
+            Align(alignment: Alignment.centerLeft,child:
+              Text(
+              "⭐ 4.5                                                  ⏱ 30 mins \n • Pizzaa    • Burgers    • Drinks",style: TextStyle(fontSize:20,fontWeight: FontWeight.bold ),)),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: TextFormField(
+              decoration: InputDecoration(
+                hintText: "Search menu items...",
+                prefixIcon: Icon(Icons.search),
+
+                filled: true,
+                fillColor: Colors.grey.shade200,
+
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+            ),
+          )],
+        ),
+      ),
+    );
+  }
+}
