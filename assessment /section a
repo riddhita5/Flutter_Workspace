@@ -1,0 +1,84 @@
+                                         Theory  Assessment
+                                         
+                                            Section A
+
+1. Explain why const constructors improve FPS during scrolling.
+
+Ans :- Const constructors help improve FPS because Flutter does not rebuild widgets that are already constant.
+When scrolling a long list, Flutter rebuilds many widgets repeatedly. If widgets are marked as const, Flutter 
+reuses them instead of creating new objects again and again.
+This reduces memory usage and rendering work, which makes scrolling smoother and improves application performance.
+
+Ex:-
+const Text("Hello")
+
+Here Flutter knows the widget will never change, so it optimizes rendering.
+
+2. Explain why InheritedWidget (or Provider) outperforms "lifting state up" for cross-tab data.
+
+Ans :- When we lift state up, we pass data manually from parent to child widgets.
+In large applications with many screens or tabs, this becomes difficult to manage.
+InheritedWidget or Provider allows data sharing globally without passing it through every widget.
+
+Advantages:
+Cleaner code
+Better performance
+Easy state management
+Less rebuilds
+Easier maintenance
+
+For cross-tab communication, Provider is more efficient because all tabs can access shared data directly.
+
+3. Explain the difference between MainAxisAlignment and CrossAxisAlignment in a Row.
+
+Ans :- In a Row widget:
+
+MainAxisAlignment controls alignment horizontally because Row’s main axis is horizontal.
+CrossAxisAlignment controls alignment vertically.
+
+Ex:- 
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  crossAxisAlignment: CrossAxisAlignment.center,
+)
+
+Here:
+Widgets are spaced evenly horizontally
+Widgets are centered vertically
+
+4. Explain why a Stack widget is used for overlaying UI elements.
+
+Ans :- A Stack widget is used when we want widgets to appear on top of each other.
+
+It is useful for:-
+Profile image with edit icon
+Text over image
+Notification badges
+Floating buttons over UI
+
+Ex:-
+Stack(
+  children: [
+    Image.asset("image.png"),
+    Positioned(
+      bottom: 0,
+      right: 0,
+      child: Icon(Icons.edit),
+    ),
+  ],
+)
+
+5. Explain the role of ValueKey when reordering items in a list.
+
+Ans :- ValueKey helps Flutter identify widgets uniquely during rebuilds or reordering.
+Without keys, Flutter may confuse list items and update the wrong widget.
+
+Using ValueKey:-
+Preserves widget state
+Improves performance
+Maintains correct order
+
+Ex:-
+ListTile(
+  key: ValueKey(item.id),
+)
