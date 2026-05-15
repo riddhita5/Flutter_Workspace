@@ -1,0 +1,53 @@
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
+
+class Swtich1 extends StatefulWidget {
+  const Swtich1({super.key});
+
+  @override
+  State<Swtich1> createState() => _Swtich1State();
+}
+
+class _Swtich1State extends State<Swtich1> {
+
+  bool isSwitched = false;
+  var textValue = 'Switch is OFF';
+  AudioPlayer audioPlayer = AudioPlayer();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(child: Column(children: [SizedBox(height: 200,),Container(
+        height: 50,
+        width: 400, child: Switch
+        (
+        value: isSwitched,
+        onChanged:  toggleSwitch,
+        activeColor: Colors.green,
+        activeTrackColor: Colors.lightGreen,
+        inactiveThumbColor: Colors.grey,
+        inactiveTrackColor: Colors.white),
+      ), Text('$textValue', style: TextStyle(fontSize: 20),
+      )
+      ]
+      ,)
+    ,),
+    );
+} void toggleSwitch(bool value) {
+    if (isSwitched == false) {
+      setState(() {
+        isSwitched = true;
+        audioPlayer.play(AssetSource('assets/audio.mp3'),);
+
+        textValue = 'Switch Button is ON';
+      });
+      print('Switch Button is ON');
+    }
+    else {
+      setState(() {
+        isSwitched = false;
+        textValue = 'Switch Button is OFF';
+      });
+      print('Switch Button is OFF');
+    }
+  }
+}
