@@ -1,0 +1,61 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'book.dart';
+import 'api_service.dart';
+
+// --- Events ---
+abstract class CatalogueEvent extends Equatable {
+  const CatalogueEvent();
+  @override
+  List<Object> get props => [];
+}
+
+class FetchCatalogue extends CatalogueEvent {}
+
+// --- States ---
+abstract class CatalogueState extends Equatable {
+  const CatalogueState();
+  @override
+  List<Object> get props => [];
+}
+
+class CatalogueLoading extends CatalogueState {}
+
+class CatalogueLoaded extends CatalogueState {
+  final List<Book> books;
+  const CatalogueLoaded(this.books);
+
+  @override
+  List<Object> get props => [books];
+}
+
+class CatalogueError extends CatalogueState {
+  final String message;
+  const CatalogueError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+class CatalogueEmpty extends CatalogueState {}
+
+// --- Bloc ---
+class CatalogueBloc extends Bloc<CatalogueEvent, CatalogueState> {
+  final ApiService apiService;
+
+  CatalogueBloc({required this.apiService}) : super(CatalogueLoading()) {
+    on<FetchCatalogue>((event, emit) async {
+      emit(CatalogueLoading());
+      try {
+        final books = await apiService.fetchBooks();
+        if (books.isEmpty) {
+          emit(CatalogueEmpty());
+        } else {
+          emit(CatalogueLoaded(books));
+        }
+      } catch (e) {
+        emit(CatalogueError(e.toString()));
+      }
+    });
+  }
+}
