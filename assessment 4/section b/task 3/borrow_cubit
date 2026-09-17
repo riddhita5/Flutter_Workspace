@@ -1,0 +1,55 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
+import '../shared/book.dart';
+
+abstract class BorrowState extends Equatable {
+  @override
+  List<Object> get props => [];
+}
+
+class BorrowEmpty extends BorrowState {}
+
+class BorrowLoaded extends BorrowState {
+  final List<Book> selectedBooks;
+  final int totalLoanDuration; // In days, e.g., 7 days per book
+
+  BorrowLoaded({required this.selectedBooks, required this.totalLoanDuration});
+
+  @override
+  List<Object> get props => [selectedBooks, totalLoanDuration];
+}
+
+class BorrowCubit extends Cubit<BorrowState> {
+  BorrowCubit() : super(BorrowEmpty());
+
+  void addBook(Book book) {
+    List<Book> currentBooks = [];
+    if (state is BorrowLoaded) {
+      currentBooks = List.from((state as BorrowLoaded).selectedBooks);
+    }
+    
+    if (!currentBooks.any((b) => b.id == book.id)) {
+      currentBooks.add(book);
+      _emitBorrowLoaded(currentBooks);
+    }
+  }
+
+  void removeBook(Book book) {
+    if (state is BorrowLoaded) {
+      List<Book> currentBooks = List.from((state as BorrowLoaded).selectedBooks);
+      currentBooks.removeWhere((b) => b.id == book.id);
+      
+      if (currentBooks.isEmpty) {
+        emit(BorrowEmpty());
+      } else {
+        _emitBorrowLoaded(currentBooks);
+      }
+    }
+  }
+
+  void _emitBorrowLoaded(List<Book> books) {
+    // Logic: Each book adds 7 days to the loan duration
+    int duration = books.length * 7;
+    emit(BorrowLoaded(selectedBooks: books, totalLoanDuration: duration));
+  }
+}
