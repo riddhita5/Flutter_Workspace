@@ -1,0 +1,14 @@
+### Bug / Limitation Found
+
+After testing the AI-generated Flutter feature, I found that the mock API was a limitation because it returns post data instead of actual book data. The response
+did not contain an author field, so the author could not be displayed correctly.
+
+### Fix / Improvement
+
+I checked the JSON response and updated the model parsing to safely handle missing fields. I used a default value such as `"Unknown Author"` when the author field is missing.
+
+I also tested the error handling by checking the loading, success, timeout, and empty-response scenarios. The application now shows a proper message instead of a blank screen or crashing.
+
+### Result
+
+The catalogue feature can now safely display the available data and provide meaningful feedback to the user when data cannot be loaded.
