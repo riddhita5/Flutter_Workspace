@@ -1,0 +1,110 @@
+Question 1:-  
+
+Explain how you would design Dart model classes to map this nested JSON response.
+How would you implement fromJson() constructors to handle optional fields without causing null
+pointer exceptions?
+
+Ans :- 
+
+To handle nested JSON, I would create separate Dart model classes for each object in the JSON response. 
+For example, if a book contains an author object, I would create Book and Author model classes.
+
+I would use a fromJson() constructor to convert JSON data into Dart objects. For optional fields, I would use nullable 
+types like String? and int?. I can also use the ?? operator to provide a default value when the JSON field is null. This helps
+prevent null-related errors and keeps the application safe.
+
+
+Question 2:-  
+
+How would you differentiate between a client-side network failure and a server-side
+HTTP error in Flutter? What strategy would you apply to give the user a meaningful experience —
+rather than a crash — when the API call fails?
+
+Ans:-
+
+A client-side network failure happens when the device cannot connect to the server. Examples are no internet connection, timeout, 
+or connection problems.
+
+A server-side HTTP error happens when the request reaches the server, but the server returns an error status code such as 400, 401, 
+404, or 500.
+
+I would handle both errors using try-catch and HTTP status-code checks. Instead of allowing the app to crash, I would show a 
+meaningful message such as "Please check your internet connection" for network errors or "Something went wrong. Please try 
+again" for server errors. I can also provide a Retry button.
+
+
+Question 3:-
+
+How does Firebase Authentication manage session persistence in Flutter? What
+mechanism would you use at app launch to check the current auth state and redirect the user
+to the correct screen accordingly?
+
+Ans:-
+
+Firebase Authentication keeps the user's login state so that the user does not need to log in every time the application is opened.
+
+At app launch, I would use FirebaseAuth.instance.authStateChanges() to check the current authentication state. If a user is logged 
+in, I would show the Home screen. If there is no logged-in user, I would show the Login screen.
+
+This allows the application to automatically redirect the user to the correct screen.
+
+
+Question 4:-
+
+Explain how StreamBuilder works with a Firestore document listener. What are the
+advantages of this real-time approach compared to polling the backend with periodic GET
+requests every few seconds?
+
+Ans:-
+
+StreamBuilder listens to a stream and automatically rebuilds the UI when new data is received.
+
+For Firestore, I can use the snapshots() method to listen to a document in real time. Whenever the document changes, Firestore sends the
+updated data through the stream, and StreamBuilder updates the UI automatically.
+
+This is better than polling because polling sends GET requests again and again after a fixed time. A real-time listener updates the application
+when the data actually changes. It is useful for features like chat, notifications, and live updates.
+
+
+Question 5:- 
+
+How would you model the book borrowing feature using Cubit? Define the states the
+Cubit should emit and explain how the UI would respond to each state transition when a
+member adds a book to their borrowing request.
+
+Ans:- 
+
+I would use Cubit to manage the book borrowing states.
+
+The main states can be:
+
+Initial – No borrowing action has started.
+Loading – The borrowing request is being processed.
+Success – The book has been successfully added to the borrowing request.
+Error – The borrowing request failed.
+
+When the member clicks the Borrow Book button, Cubit emits the Loading state. The UI shows a progress indicator. If the request is successful,
+Cubit emits Success and the UI shows a success message. If the request fails, Cubit emits Error and the UI shows an error message with an option
+to try again.
+
+
+Question 6:-
+
+Describe three layers of clean architecture as they apply to a 'Fetch Book
+Catalogue' feature. Which layer holds the API call, which holds the business rule, and which
+renders the data? Why does data flow in one direction only?
+
+Ans:-
+
+Clean Architecture has three main layers:
+
+1. Presentation Layer:
+This layer contains the UI, such as the Book Catalogue screen. It displays the books and shows loading, success, and error states.
+
+2. Domain Layer:
+This layer contains the business logic and use cases. For the book catalogue, it can contain a FetchBookCatalogue use case and the business rules.
+
+3. Data Layer:
+This layer communicates with external data sources such as APIs or databases. The API call and JSON-to-model conversion are handled here.
+
+The data flow is one-directional: Presentation → Domain → Data. This keeps each layer independent and makes the application easier to test, maintain, and modify.
