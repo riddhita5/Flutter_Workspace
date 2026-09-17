@@ -1,0 +1,79 @@
+import '../shared/book.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import '../task1/api_service.dart';
+import 'firestore_service.dart';
+
+abstract class CatalogueEvent extends Equatable {
+  @override
+  List<Object> get props => [];
+}
+
+class FetchCatalogue extends CatalogueEvent {}
+
+abstract class CatalogueState extends Equatable {
+  @override
+  List<Object> get props => [];
+}
+
+class CatalogueLoading extends CatalogueState {}
+
+class CatalogueLoaded extends CatalogueState {
+  final List<Book> books;
+  final bool isOffline;
+
+  CatalogueLoaded(this.books, {this.isOffline = false});
+
+  @override
+  List<Object> get props => [books, isOffline];
+}
+
+class CatalogueError extends CatalogueState {
+  final String message;
+  CatalogueError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+class CatalogueBloc extends Bloc<CatalogueEvent, CatalogueState> {
+  final ApiService apiService;
+  final Task4FirestoreService firestoreService;
+
+  CatalogueBloc({required this.apiService, required this.firestoreService}) : super(CatalogueLoading()) {
+    on<FetchCatalogue>((event, emit) async {
+      emit(CatalogueLoading());
+      try {
+        var connectivityResult = await (Connectivity().checkConnectivity());
+        if (connectivityResult != ConnectivityResult.none) {
+          // Online: Fetch from API
+          final books = await apiService.fetchBooks();
+          // Cache to Firestore
+          await firestoreService.cacheCatalogue(books);
+          emit(CatalogueLoaded(books));
+        } else {
+          // Offline: Load from cache
+          final cachedBooks = await firestoreService.getCachedCatalogue();
+          if (cachedBooks.isNotEmpty) {
+            emit(CatalogueLoaded(cachedBooks, isOffline: true));
+          } else {
+            emit(CatalogueError("No internet and no cached data available."));
+          }
+        }
+      } catch (e) {
+        // Fallback to cache on API error
+        try {
+          final cachedBooks = await firestoreService.getCachedCatalogue();
+          if (cachedBooks.isNotEmpty) {
+            emit(CatalogueLoaded(cachedBooks, isOffline: true));
+          } else {
+            emit(CatalogueError("Failed to fetch catalogue: $e"));
+          }
+        } catch (_) {
+          emit(CatalogueError("Failed to fetch catalogue: $e"));
+        }
+      }
+    });
+  }
+}
