@@ -1,0 +1,23 @@
+import '../shared/book.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class Task4FirestoreService {
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  Future<void> cacheCatalogue(List<Book> books) async {
+    final batch = _db.batch();
+    final catalogueRef = _db.collection('catalogue');
+
+    for (var book in books) {
+      batch.set(catalogueRef.doc(book.id), book.toJson());
+    }
+    await batch.commit();
+  }
+
+  Future<List<Book>> getCachedCatalogue() async {
+    final snapshot = await _db.collection('catalogue').get();
+    return snapshot.docs
+        .map((doc) => Book.fromJson(doc.data()))
+        .toList();
+  }
+}
