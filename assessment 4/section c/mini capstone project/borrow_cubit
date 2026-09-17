@@ -1,0 +1,42 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'book.dart';
+
+abstract class BorrowState extends Equatable {
+  const BorrowState();
+  @override
+  List<Object> get props => [];
+}
+
+class BorrowInitial extends BorrowState {}
+
+class BorrowUpdated extends BorrowState {
+  final List<Book> borrowedBooks;
+  const BorrowUpdated(this.borrowedBooks);
+
+  @override
+  List<Object> get props => [borrowedBooks];
+}
+
+class BorrowCubit extends Cubit<BorrowState> {
+  BorrowCubit() : super(BorrowInitial());
+
+  final List<Book> _borrowedBooks = [];
+
+  void addBook(Book book) {
+    if (!_borrowedBooks.any((b) => b.id == book.id)) {
+      _borrowedBooks.add(book);
+      emit(BorrowUpdated(List.from(_borrowedBooks)));
+    }
+  }
+
+  void removeBook(Book book) {
+    _borrowedBooks.removeWhere((b) => b.id == book.id);
+    emit(BorrowUpdated(List.from(_borrowedBooks)));
+  }
+
+  void clear() {
+    _borrowedBooks.clear();
+    emit(BorrowInitial());
+  }
+}
