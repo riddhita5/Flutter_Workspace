@@ -1,0 +1,66 @@
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../shared/book.dart';
+import 'firestore_service.dart';
+
+class ReadingListScreen extends StatelessWidget {
+  const ReadingListScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final FirestoreService firestoreService = FirestoreService();
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Reading List')),
+        body: const Center(child: Text('Please log in')),
+      );
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('My Reading List'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              if (context.mounted) Navigator.pop(context);
+            },
+          )
+        ],
+      ),
+      body: StreamBuilder<List<Book>>(
+        stream: firestoreService.getReadingList(user.uid),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('Your reading list is empty.'));
+          }
+
+          final books = snapshot.data!;
+          return ListView.builder(
+            itemCount: books.length,
+            itemBuilder: (context, index) {
+              final book = books[index];
+              return ListTile(
+                title: Text(book.title),
+                subtitle: Text(book.author),
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                  onPressed: () => firestoreService.removeFromReadingList(user.uid, book.id),
+                ),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
