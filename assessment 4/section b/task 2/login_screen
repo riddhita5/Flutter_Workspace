@@ -1,0 +1,64 @@
+import 'package:flutter/material.dart';
+import 'auth_service.dart';
+import 'reading_list_screen.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final AuthService _auth = AuthService();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isLoading = false;
+
+  void _handleAuth(bool isLogin) async {
+    setState(() => _isLoading = true);
+    final cred = isLogin 
+      ? await _auth.signIn(_emailController.text, _passwordController.text)
+      : await _auth.signUp(_emailController.text, _passwordController.text);
+    
+    setState(() => _isLoading = false);
+
+    if (cred != null) {
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const ReadingListScreen()),
+        );
+      }
+    } else {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(isLogin ? 'Login Failed' : 'Registration Failed')),
+        );
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Library Login')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(controller: _emailController, decoration: const InputDecoration(labelText: 'Email')),
+            TextField(controller: _passwordController, decoration: const InputDecoration(labelText: 'Password'), obscureText: true),
+            const SizedBox(height: 20),
+            if (_isLoading) 
+              const CircularProgressIndicator()
+            else ...[
+              ElevatedButton(onPressed: () => _handleAuth(true), child: const Text('Login')),
+              TextButton(onPressed: () => _handleAuth(false), child: const Text('Register')),
+            ]
+          ],
+        ),
+      ),
+    );
+  }
+}
