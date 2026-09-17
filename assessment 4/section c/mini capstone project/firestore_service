@@ -1,0 +1,60 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'book.dart';
+
+class FirestoreService {
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  String? get _uid => FirebaseAuth.instance.currentUser?.uid;
+
+  // Reading List (Task 2)
+  Stream<List<Book>> getReadingList() {
+    if (_uid == null) return Stream.value([]);
+    return _db
+        .collection('users')
+        .doc(_uid)
+        .collection('reading_list')
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) => Book.fromJson(doc.data()))
+            .toList());
+  }
+
+  Future<void> addToReadingList(Book book) async {
+    if (_uid == null) return;
+    await _db
+        .collection('users')
+        .doc(_uid)
+        .collection('reading_list')
+        .doc(book.id)
+        .set(book.toJson());
+  }
+
+  Future<void> removeFromReadingList(String bookId) async {
+    if (_uid == null) return;
+    await _db
+        .collection('users')
+        .doc(_uid)
+        .collection('reading_list')
+        .doc(bookId)
+        .delete();
+  }
+
+  // Offline Cache (Task 4)
+  Future<void> cacheCatalogue(List<Book> books) async {
+    final batch = _db.batch();
+    final catalogueRef = _db.collection('catalogue_cache');
+
+    for (var book in books) {
+      batch.set(catalogueRef.doc(book.id), book.toJson());
+    }
+    await batch.commit();
+  }
+
+  Future<List<Book>> getCachedCatalogue() async {
+    final snapshot = await _db.collection('catalogue_cache').get(
+          const GetOptions(source: Source.serverAndCache),
+        );
+    return snapshot.docs.map((doc) => Book.fromJson(doc.data())).toList();
+  }
+}
